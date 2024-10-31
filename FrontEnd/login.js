@@ -30,7 +30,14 @@ function login(email, password) {
     .then(data => {
         console.log("Connexion réussie", data);
         localStorage.setItem("token", data.token);
-        window.location.href = "http://127.0.0.1:5500/Portfolio-architecte-sophie-bluel-master/FrontEnd/index.html";
+        window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
+        // const token = window.localStorage.getItem("token");
+        //   if (token !== null) {
+        //     const edit = document.createElement("div");
+        //     const container = document.querySelector(".container");
+        //     edit.classList.add("edit");
+        //     container.appendChild(edit);
+        //   }
     })
     .catch(error => {
         console.error("Erreur :", error);
