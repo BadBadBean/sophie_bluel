@@ -1,6 +1,13 @@
 // Variables
 const filters = document.querySelectorAll(".filter");
 const gallery = document.querySelector(".gallery");
+const editBanner = document.querySelector(".edit");
+const projectEdit = document.querySelector(".projects__edit");
+const editButton = document.querySelector(".edit__button");
+const filtersButton = document.querySelector(".filters");
+const logout = document.querySelector(".logout");
+
+editMode();
 
 // Fonction pour récupérer les projets
 async function fetchProjects() {
@@ -63,4 +70,19 @@ for (let filter of filters) {
             }
         });
     });
+}
+
+function editMode() {
+    const token = window.localStorage.getItem("token");
+    if (token !== null) {
+        logout.innerText = "logout";
+        editBanner.style.display = "flex";
+        editButton.style.display = "block";
+        filtersButton.style.display = "none";
+        projectEdit.classList.add("projects__edit--visible");
+    } else {
+        logout.innerText = "login";
+        filtersButton.style.display = "flex";
+        projectEdit.classList.remove("projects__edit--visible");
+    }
 }
