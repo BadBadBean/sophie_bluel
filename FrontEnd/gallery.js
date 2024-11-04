@@ -72,6 +72,8 @@ for (let filter of filters) {
     });
 }
 
+
+// Fonction pour mettre à jour le texte du lien de déconnexion et ajouter une marge
 function editMode() {
     const token = window.localStorage.getItem("token");
     if (token !== null) {
@@ -86,3 +88,8 @@ function editMode() {
         projectEdit.classList.remove("projects__edit--visible");
     }
 }
+
+// Déconnexion de l'utilisateur
+logout.addEventListener("click", function(event) {
+    localStorage.removeItem("token");
+});
