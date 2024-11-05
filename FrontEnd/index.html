@@ -13,6 +13,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<script src="gallery.js" defer></script>
+	<script src="modal.js" defer></script>
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
@@ -20,6 +21,17 @@
 	<i class="fa-regular fa-pen-to-square"></i>
 	<p>Mode édition</p>
 </div>
+<aside class="modal__wrapper">
+	<div class="modal">
+		<div class="modal__header">
+		<p class="modal__title">Galerie photo</p>
+		<i class="fa-solid fa-xmark"></i>
+		</div>
+		<div class="modal__gallery">
+		</div>
+		<button class="filter active modal__button">Ajouter une photo</button>
+	</div>
+</aside>
 <div class="wrapper">
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -47,7 +59,7 @@
 	<section id="portfolio">
 		<div class="projects__edit projects__edit--visible">
 		<h2>Mes Projets</h2>
-		<button class="edit__button"><i class="fa-regular fa-pen-to-square"></i>Modifier</button>
+		<a class="edit__button"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
 		</div>
 		<section class="filters">
 			<button class="filter active" id="Tout">Tous</button>
