@@ -1,5 +1,9 @@
 // Variables
 const modalGallery = document.querySelector(".modal__gallery");
+const editButtonModal = document.querySelector(".edit__button");
+const modalWrapper = document.querySelector(".modal__wrapper");
+const closeModalButton = document.querySelector(".fa-xmark");
+const modal = document.querySelector(".modal");
 
 
 // Fonction pour récupérer les projets
@@ -47,6 +51,18 @@ function displayModalImages(images) {
 displayModalProjects();
 
 //Afficher la modale
+editButtonModal.addEventListener("click", function (event) {
+    modalWrapper.style.display = "flex";
+  });
 
+// // Fermer la modale
+closeModalButton.addEventListener("click", function (event) {
+    modalWrapper.style.display = "none";
+});
 
-//Fermer la modale
+// Fermer la modale en cliquant en dehors de la modale
+document.addEventListener("click", function (event) {
+    if (!modal.contains(event.target) && !editButtonModal.contains(event.target)) {
+        modalWrapper.style.display = "none";  // Fermer la modale
+    }
+});

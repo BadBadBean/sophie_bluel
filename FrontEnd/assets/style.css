@@ -282,12 +282,13 @@ footer nav ul {
   width: 100vw;
   height: 100vh;
   position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 3;
-  /* display: none; */
+  display: none;
 }
 
 .modal {
@@ -331,6 +332,7 @@ footer nav ul {
 	top: 26px;
 	right: 30px;
 	font-size: 24px;
+	cursor: pointer;
 }
 
 .fa-trash-can {
