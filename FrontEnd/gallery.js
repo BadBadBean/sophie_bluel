@@ -19,7 +19,7 @@ async function fetchProjects() {
 }
 
 // Fonction pour afficher les projets
-async function displayProjects() {
+export async function displayProjects() {
     try {
         const images = await fetchProjects(); // Attendre les images
         displayImages(images); // Afficher les images
@@ -30,6 +30,7 @@ async function displayProjects() {
 
 // Créer la galerie
 function displayImages(images) {
+    gallery.innerHTML = "";
     images.forEach(image => {
         const imageContainer = document.createElement("figure");
 

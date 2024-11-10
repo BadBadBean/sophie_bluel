@@ -1,3 +1,6 @@
+//import de la fonction displayProjects pour mettre à jour la galerie principale
+import { displayProjects } from './gallery.js';
+
 // Variables
 const modalGallery = document.querySelector(".modal__gallery");
 const editButtonModal = document.querySelector(".edit__button");
@@ -88,6 +91,7 @@ function deleteProject() {
                     const imageModalContainer = icon.closest('.modal__content');
                     modalGallery.removeChild(imageModalContainer);
                     console.log("Projet supprimé");
+                    displayProjects();
                 } else {
                     console.error("Erreur lors de la suppression du projet");
                 }
