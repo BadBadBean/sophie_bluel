@@ -22,7 +22,7 @@
 	<p>Mode édition</p>
 </div>
 <aside class="modal__wrapper">
-	<div class="modal" id="modal">
+	<div class="modal">
 		<div class="modal__header">
 		<p class="modal__title">Galerie photo</p>
 		<i class="fa-solid fa-xmark"></i>
@@ -31,6 +31,7 @@
 		</div>
 		<button class="filter active modal__button">Ajouter une photo</button>
 	</div>
+
 </aside>
 <div class="wrapper">
 <header>
@@ -61,14 +62,10 @@
 		<h2>Mes Projets</h2>
 		<a class="edit__button"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
 		</div>
-		<section class="filters">
-			<button class="filter active" id="Tout">Tous</button>
-			<button class="filter" id="Objets">Objets</button>
-			<button class="filter" id="Appartements">Appartements</button>
-			<button class="filter" id="Hotels & restaurants">Hotels & restaurants</button>
-		</section>
+		<div class="filters"></div>
+			<!-- categories fetched from API -->
 		<div class="gallery">
-			<!-- javascript -->
+			<!-- gallery images fetched from API -->
 		</div>
 	</section>
 	<section id="contact">

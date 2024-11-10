@@ -1,5 +1,5 @@
 // Variables
-const filters = document.querySelectorAll(".filter");
+const filtersContainer = document.querySelector(".filters");
 const gallery = document.querySelector(".gallery");
 const editBanner = document.querySelector(".edit");
 const projectEdit = document.querySelector(".projects__edit");
@@ -9,6 +9,15 @@ const logout = document.querySelector(".logout");
 
 editMode();
 
+// Fonction pour récupérer les catégories
+async function fetchCategories() {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if (response.ok) {
+        return response.json();
+    }
+    throw new Error("Impossible de récupérer les catégories");
+}
+
 // Fonction pour récupérer les projets
 async function fetchProjects() {
     const response = await fetch("http://localhost:5678/api/works");
@@ -16,6 +25,60 @@ async function fetchProjects() {
         return response.json();
     }
     throw new Error("Impossible de contacter le serveur");
+}
+
+// Fonction pour afficher les filtres
+async function displayFilters() {
+    try {
+        const categories = await fetchCategories();
+        
+        // Ajouter un bouton pour "Tout"
+        const allButton = document.createElement("button");
+        allButton.classList.add("filter");
+        allButton.id = "Tout";
+        allButton.textContent = "Tout";
+        filtersContainer.appendChild(allButton);
+
+        // Créer un bouton pour chaque catégorie
+        categories.forEach(category => {
+            const filterButton = document.createElement("button");
+            filterButton.classList.add("filter");
+            filterButton.id = category.name; // Utilise le nom de la catégorie comme ID
+            filterButton.textContent = category.name;
+            filtersContainer.appendChild(filterButton);
+        });
+
+        // Ajouter l'événement de filtre pour chaque bouton
+        addFilterEventListeners();
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+// Fonction pour ajouter les événements aux filtres
+function addFilterEventListeners() {
+    const filters = document.querySelectorAll(".filters button");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", function(event) {
+            const tag = event.currentTarget.id;
+
+            // Retirer la classe active de tous les boutons
+            filters.forEach(btn => btn.classList.remove("active"));
+            // Ajouter la classe active au bouton cliqué
+            event.currentTarget.classList.add("active");
+
+            const images = document.querySelectorAll(".gallery figure");
+            images.forEach(image => {
+                const imgElement = image.querySelector("img");
+                if (imgElement.dataset.category === tag || tag === "Tout") {
+                    image.style.display = "block"; // Afficher l'image
+                } else {
+                    image.style.display = "none"; // Masquer l'image
+                }
+            });
+        });
+    });
 }
 
 // Fonction pour afficher les projets
@@ -51,28 +114,6 @@ function displayImages(images) {
 // Afficher les projets
 displayProjects();
 
-// Gestion des filtres
-for (let filter of filters) {
-    filter.addEventListener("click", function(event) {
-        const tag = event.currentTarget.id;
-
-        // Retirer la classe active de tous les boutons
-        filters.forEach(btn => btn.classList.remove("active"));
-        // Ajouter la classe active au bouton cliqué
-        event.currentTarget.classList.add("active");
-
-        const images = document.querySelectorAll(".gallery figure");
-        images.forEach(image => {
-            const imgElement = image.querySelector("img");
-            if (imgElement.dataset.category === tag || tag === "Tout") {
-                image.style.display = "block"; // Afficher l'image
-            } else {
-                image.style.display = "none"; // Masquer l'image
-            }
-        });
-    });
-}
-
 
 // Fonction pour mettre à jour le texte du lien de déconnexion et ajouter une marge
 function editMode() {
@@ -94,3 +135,16 @@ function editMode() {
 logout.addEventListener("click", function(event) {
     localStorage.removeItem("token");
 });
+
+// Récupérer les catégories, afficher les filtres et les projets
+fetchCategories()
+    .then(() => {
+        displayFilters();  // Afficher les filtres
+        return fetchProjects(); // Puis récupérer et afficher les projets
+    })
+    .then(images => {
+        displayImages(images); // Afficher les projets dans la galerie
+    })
+    .catch(error => {
+        console.error(error.message); // Gérer les erreurs
+    });

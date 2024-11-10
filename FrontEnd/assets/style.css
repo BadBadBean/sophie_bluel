@@ -195,6 +195,7 @@ li:hover {
 .filters {
 	display: flex;
 	justify-content: center;
+	margin-block: 50px;
 }
 
 .filter {
