@@ -34,7 +34,7 @@ async function displayFilters() {
         
         // Ajouter un bouton pour "Tout"
         const allButton = document.createElement("button");
-        allButton.classList.add("filter");
+        allButton.classList.add("filter", "active");
         allButton.id = "Tout";
         allButton.textContent = "Tout";
         filtersContainer.appendChild(allButton);

@@ -2,11 +2,15 @@
 import { displayProjects } from './gallery.js';
 
 // Variables
-const modalGallery = document.querySelector(".modal__gallery");
+const modalGallery = document.querySelector(".modal__images");
 const editButtonModal = document.querySelector(".edit__button");
 const modalWrapper = document.querySelector(".modal__wrapper");
-const closeModalButton = document.querySelector(".fa-xmark");
-const modal = document.querySelector(".modal");
+const closeModalButton = document.querySelector(".modal__gallery .fa-xmark");
+const closeModalButtonAdd = document.querySelector(".modal__addProject .fa-xmark");
+const modal = document.querySelector(".modal__gallery");
+const modalAddProject = document.querySelector(".modal__addProject");
+const modalButton = document.querySelector(".modal__button");
+const backButton = document.querySelector(".fa-arrow-left");
 
 
 // Fonction pour récupérer les projets
@@ -60,14 +64,31 @@ editButtonModal.addEventListener("click", function (event) {
     modalWrapper.style.display = "flex";
   });
 
-// // Fermer la modale
+// Fermer la modale
 closeModalButton.addEventListener("click", function (event) {
     modalWrapper.style.display = "none";
 });
 
+// Fermer la modale sur la deuxième vue
+closeModalButtonAdd.addEventListener("click", function (event) {
+    modalWrapper.style.display = "none";
+});
+
+// Ouvrir la 2e vue de la modale
+modalButton.addEventListener("click", function (event) {
+    modal.style.display = "none";
+    modalAddProject.style.display = "flex";
+})
+
+// Retour sur la 1ere vue de la modale
+backButton.addEventListener("click", function (event) {
+    modal.style.display = "flex";
+    modalAddProject.style.display = "none";
+})
+
 // Fermer la modale en cliquant en dehors de la modale
 document.addEventListener("click", function (event) {
-    if (!modal.contains(event.target) && !editButtonModal.contains(event.target)) {
+    if (!modal.contains(event.target) && !modalAddProject.contains(event.target) && !editButtonModal.contains(event.target)) {
         modalWrapper.style.display = "none";
     }
 });
@@ -101,3 +122,107 @@ function deleteProject() {
         });
     });
 }
+
+// Image preview
+const fileInput = document.getElementById("input__add");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("categories-select");
+const imgEl = document.getElementById("img__preview");
+const iconEl = document.querySelector(".fa-image");
+const labelEl = document.querySelector(".file__label");
+const modalForm = document.getElementById("modal__form");
+const error = document.getElementById("error");
+const validationButton = document.getElementById("validation__button");
+
+
+modalForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Empêche la soumission et rechargement de la page
+    let messages = [];
+
+    if (titleInput.value == "") {
+        messages.push("Le titre est requis");
+    }
+
+    if(categoryInput.value == "") {
+        messages.push("Vous devez choisir une catégorie")
+    }
+
+    if(fileInput.value == "") {
+        messages.push("Vous devez sélectionner une image")
+    }
+
+    if (messages.length > 0) {
+        error.innerText = messages.join(', ');
+        return; // Arrête l'exécution si des erreurs sont présentes
+    }
+
+    const formData = new FormData(modalForm);
+
+    // Afficher les données envoyées dans la console
+    for (let item of formData) {
+        console.log(item[0], item[1]);
+    }
+
+    fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log('Projet ajouté :', data);  // Afficher l'objet projet
+    if (data.id) {
+        // alert('Le projet a été ajouté avec succès !');
+        modalForm.reset();
+        document.getElementById('img__preview').src = '';
+        iconEl.classList.remove("hidden");
+        labelEl.classList.remove("hidden");
+        error.classList.add("hidden");
+
+        displayProjects(); // Met à jour la galerie principale
+        displayModalProjects(); // Met à jour la galerie de la modale
+    } else {
+        console.error('Erreur lors de l\'ajout du projet : ', data);
+    }
+    })
+    .catch(error => {
+        console.error("Erreur lors de l'ajout du projet :", error);
+    });
+});
+
+// Preview image
+fileInput.addEventListener("change", (event) => {
+    if (event?.target?.files && event.target.files[0]) {
+        // Affiche l'aperçu de l'image
+        imgEl.src = URL.createObjectURL(event.target.files[0]);
+
+        // Masque l'icône et le label
+        iconEl.classList.add("hidden");
+        labelEl.classList.add("hidden");
+
+        // Libère l'URL une fois l'image chargée
+        imgEl.onload = () => URL.revokeObjectURL(imgEl.src);
+    }
+});
+
+// Fonction pour vérifier si tous les champs sont remplis
+function checkFormCompletion() {
+    console.log("Vérification des champs..."); // Pour voir si la fonction est appelée
+    if (titleInput.value !== "" && categoryInput.value !== "" && fileInput.value !== "") {
+        validationButton.classList.add("active");
+        console.log("Bouton activé"); // Pour confirmer que la classe est ajoutée
+    } else {
+        validationButton.classList.remove("active");
+        console.log("Bouton désactivé"); // Pour confirmer que la classe est retirée
+    }
+}
+
+// Ajouter des écouteurs d'événements sur chaque champ pour vérifier en temps réel
+titleInput.addEventListener("input", checkFormCompletion);
+categoryInput.addEventListener("change", checkFormCompletion);
+fileInput.addEventListener("change", checkFormCompletion);
+
+// Initialiser la vérification à l'ouverture du formulaire
+checkFormCompletion();

@@ -52,6 +52,9 @@ a {
 	text-decoration: none;
 }
 /** end reset css**/
+
+
+/** GENERAL **/
 body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -70,21 +73,6 @@ header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
-}
-
-.edit {
-	background-color: #000000;
-	color: white;
-	height: 59px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 16px;
-	display: none;
-}
-
-.fa-pen-to-square {
-	margin-right: 10px;
 }
 
 section {
@@ -127,10 +115,27 @@ li:hover {
 	color: #B1663C;
 }
 
+/** LOGIN BANNER **/
+.edit {
+	background-color: #000000;
+	color: white;
+	height: 59px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	display: none;
+}
+
+.fa-pen-to-square {
+	margin-right: 10px;
+}
+
 .login__active {
 	font-weight: 600;
 }
 
+/** INTRODUCTION **/
 #introduction {
 	display: flex;
 	align-items: center;
@@ -154,6 +159,8 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/** PORTFOLIO **/
 #portfolio h2 {
 	text-align: center;
 	margin-top: 139px;
@@ -216,17 +223,20 @@ li:hover {
     color: #FFFFFF;
 }
 
+
+/** CONTACT **/
 #contact, #login {
 	width: 50%;
 margin: auto;
 }
 #contact, #login > * {
 	text-align: center;
-
 }
+
 #contact h2, #login h2 {
 	margin-bottom: 20px;
 }
+
 #contact form, #login form {
 	text-align: left;
 	margin-top:30px;
@@ -234,16 +244,18 @@ margin: auto;
 	flex-direction: column;
 }
 
-#contact input, #login input {
+#contact input, #login input, .modal__wrapper input, #categories-select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 
 }
-#contact label, #login label {
+
+#contact label, #login label, .modal__wrapper label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -269,6 +281,8 @@ input[type="submit"]:hover {
 	text-decoration: underline;
 }
 
+/** FOOTER **/
+
 footer {
 	margin-right: 0;
 }
@@ -278,6 +292,8 @@ footer nav ul {
 	justify-content: flex-end;
 	margin-block: 2em;
 }
+
+/** MODALS **/
 
 .modal__wrapper {
   width: 100vw;
@@ -292,7 +308,7 @@ footer nav ul {
   display: none;
 }
 
-.modal {
+.modal__gallery {
 	background-color: #FFFFFF;
 	width: 630px;
 	height: 688px;
@@ -307,9 +323,10 @@ footer nav ul {
 .modal__title {
 	font-size: 26px;
 	margin-bottom: 46px;
+	text-align: center;
 }
 
-.modal__gallery {
+.modal__images {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 9px;
@@ -320,7 +337,7 @@ footer nav ul {
 	margin-inline: 105px;
 }
 
-.modal__gallery img {
+.modal__images img {
 	width: 100%;
 }
 
@@ -332,6 +349,14 @@ footer nav ul {
 	position: absolute;
 	top: 26px;
 	right: 30px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.fa-arrow-left {
+	position: absolute;
+	top: 26px;
+	left: 30px;
 	font-size: 24px;
 	cursor: pointer;
 }
@@ -349,4 +374,100 @@ footer nav ul {
 	display: flex;
 	align-items:center;
 	justify-content: center;
+	cursor: pointer;
+}
+
+.modal__addProject {
+	background-color: #FFFFFF;
+	width: 630px;
+	height: 688px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	box-sizing: border-box;
+	padding-inline: 105px;
+	display: none;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+#input__file {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #E8F1F6;
+	padding-block: 19px;
+	position: relative;
+ }
+
+#input__file label {
+	color: #306685;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	text-align: center;
+	padding: 10px 33px;
+}
+
+.fa-image {
+	color: #B9C5CC;
+	font-size: 60px;
+}
+
+.input__info {
+	font-size: 10px;
+	color: #444444;
+}
+
+input[type=file] {
+	display: none;
+}
+
+#validation__button {
+	background-color: #A7A7A7;
+}
+
+#categories-select {
+	font-family: 'Work Sans';
+	font-size: 14px;
+	background-color: inherit;
+}
+
+input[type=text] {
+	font-family: 'Work Sans';
+	font-size: 14px;
+}
+
+#img__preview {
+	z-index: 10;
+	position: absolute;
+	height: 100%;
+	top: 0;
+}
+
+.hidden {
+	opacity: 0;
+    pointer-events: none;
+}
+
+.input__description {
+display: flex;
+flex-direction: column;
+border-bottom: 1px solid #B3B3B3;
+padding-bottom: 50px;
+}
+
+#error {
+	text-align: center;
+	padding-block: 10px;
+	color: red;
+}
+
+#validation__button.active {
+    background-color: #1D6154;
+    color: #FFFFFF;
 }

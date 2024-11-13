@@ -12,8 +12,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<script type="module" src="gallery.js" defer></script>
-	<script type="module" src="modal.js" defer></script>
+	<script type="module" src="gallery.js"></script>
+	<script type="module" src="modal.js"></script>
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
@@ -22,16 +22,46 @@
 	<p>Mode édition</p>
 </div>
 <aside class="modal__wrapper">
-	<div class="modal">
+	<div class="modal__gallery">
 		<div class="modal__header">
 		<p class="modal__title">Galerie photo</p>
 		<i class="fa-solid fa-xmark"></i>
 		</div>
-		<div class="modal__gallery">
+		<div class="modal__images">
 		</div>
 		<button class="filter active modal__button">Ajouter une photo</button>
 	</div>
-
+	<div class="modal__addProject">
+		<div class="modal__header">
+			<p class="modal__title">Ajouter une photo</p>
+			<i class="fa-solid fa-arrow-left"></i>
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+		<div id="error"></div>
+		<form enctype="multipart/form-data" id="modal__form">
+			<div id="input__file">
+			  <img id="img__preview">
+			  <i class="fa-regular fa-image"></i>
+			  <label for="input__add" class="file__label">+ Ajouter photo</label>
+			  <input type="file" id="input__add" name="image" accept="image/*">
+			  <p class="input__info">jpg, png : 4mo max</p>
+			</div>
+			<div class="input__description">
+			<label for="title">Titre</label>
+			<input type="text" id="title" name="title">
+			<label for="categories-select">Catégorie</label>
+			<select name="category" id="categories-select">
+			  <option value=" "></option>
+			  <option value="1">Objets</option>
+			  <option value="2">Appartements</option>
+			  <option value="3">Hôtels & restaurants</option>
+			</select>
+			</div>
+			
+			<input type="submit" value="Valider" id="validation__button">
+		  </form>
+		  
+	</div>
 </aside>
 <div class="wrapper">
 <header>
