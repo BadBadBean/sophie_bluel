@@ -471,3 +471,7 @@ padding-bottom: 50px;
     background-color: #1D6154;
     color: #FFFFFF;
 }
+
+option:nth-child(1) {
+	color: orange;
+}

@@ -32,31 +32,30 @@ async function displayFilters() {
     try {
         const categories = await fetchCategories();
         
-        // Ajouter un bouton pour "Tout"
+        // Ajout d'un bouton pour la catégorie "Tout"
         const allButton = document.createElement("button");
         allButton.classList.add("filter", "active");
         allButton.id = "Tout";
         allButton.textContent = "Tout";
         filtersContainer.appendChild(allButton);
 
-        // Créer un bouton pour chaque catégorie
+        // Ajout d'un bouton pour chaque catégorie
         categories.forEach(category => {
             const filterButton = document.createElement("button");
             filterButton.classList.add("filter");
-            filterButton.id = category.name; // Utilise le nom de la catégorie comme ID
+            filterButton.id = category.name;
             filterButton.textContent = category.name;
             filtersContainer.appendChild(filterButton);
         });
 
-        // Ajouter l'événement de filtre pour chaque bouton
-        addFilterEventListeners();
+        addFilters();
     } catch (error) {
         console.error(error.message);
     }
 }
 
-// Fonction pour ajouter les événements aux filtres
-function addFilterEventListeners() {
+// Event Listener sur les filtres
+function addFilters() {
     const filters = document.querySelectorAll(".filters button");
 
     filters.forEach(filter => {
@@ -91,7 +90,7 @@ export async function displayProjects() {
     }
 }
 
-// Créer la galerie
+// Création de la galerie
 function displayImages(images) {
     gallery.innerHTML = "";
     images.forEach(image => {
@@ -115,7 +114,7 @@ function displayImages(images) {
 displayProjects();
 
 
-// Fonction pour mettre à jour le texte du lien de déconnexion et ajouter une marge
+// Fonction pour mettre à jour le texte du lien de déconnexion (et ajouter une marge)
 function editMode() {
     const token = window.localStorage.getItem("token");
     if (token !== null) {

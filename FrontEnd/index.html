@@ -40,7 +40,7 @@
 		<div id="error"></div>
 		<form enctype="multipart/form-data" id="modal__form">
 			<div id="input__file">
-			  <img id="img__preview">
+			  <img id="img__preview" alt="" src="#">
 			  <i class="fa-regular fa-image"></i>
 			  <label for="input__add" class="file__label">+ Ajouter photo</label>
 			  <input type="file" id="input__add" name="image" accept="image/*">
@@ -51,13 +51,12 @@
 			<input type="text" id="title" name="title">
 			<label for="categories-select">Catégorie</label>
 			<select name="category" id="categories-select">
-			  <option value=" "></option>
+			  <option value="" label=" "></option>
 			  <option value="1">Objets</option>
 			  <option value="2">Appartements</option>
 			  <option value="3">Hôtels & restaurants</option>
 			</select>
 			</div>
-			
 			<input type="submit" value="Valider" id="validation__button">
 		  </form>
 		  

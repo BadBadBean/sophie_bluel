@@ -11,6 +11,15 @@ const modal = document.querySelector(".modal__gallery");
 const modalAddProject = document.querySelector(".modal__addProject");
 const modalButton = document.querySelector(".modal__button");
 const backButton = document.querySelector(".fa-arrow-left");
+const fileInput = document.getElementById("input__add");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("categories-select");
+const imgEl = document.getElementById("img__preview");
+const iconEl = document.querySelector(".fa-image");
+const labelEl = document.querySelector(".file__label");
+const modalForm = document.getElementById("modal__form");
+const error = document.getElementById("error");
+const validationButton = document.getElementById("validation__button");
 
 
 // Fonction pour récupérer les projets
@@ -86,7 +95,7 @@ backButton.addEventListener("click", function (event) {
     modalAddProject.style.display = "none";
 })
 
-// Fermer la modale en cliquant en dehors de la modale
+// Fermer la modale en cliquant en dehors
 document.addEventListener("click", function (event) {
     if (!modal.contains(event.target) && !modalAddProject.contains(event.target) && !editButtonModal.contains(event.target)) {
         modalWrapper.style.display = "none";
@@ -123,20 +132,9 @@ function deleteProject() {
     });
 }
 
-// Image preview
-const fileInput = document.getElementById("input__add");
-const titleInput = document.getElementById("title");
-const categoryInput = document.getElementById("categories-select");
-const imgEl = document.getElementById("img__preview");
-const iconEl = document.querySelector(".fa-image");
-const labelEl = document.querySelector(".file__label");
-const modalForm = document.getElementById("modal__form");
-const error = document.getElementById("error");
-const validationButton = document.getElementById("validation__button");
-
-
+// messages d'erreur du formulaire
 modalForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // Empêche la soumission et rechargement de la page
+    e.preventDefault();
     let messages = [];
 
     if (titleInput.value == "") {
@@ -153,9 +151,10 @@ modalForm.addEventListener("submit", (e) => {
 
     if (messages.length > 0) {
         error.innerText = messages.join(', ');
-        return; // Arrête l'exécution si des erreurs sont présentes
+        return;
     }
 
+    //Envoi du formulaire
     const formData = new FormData(modalForm);
 
     // Afficher les données envoyées dans la console
@@ -212,10 +211,10 @@ function checkFormCompletion() {
     console.log("Vérification des champs..."); // Pour voir si la fonction est appelée
     if (titleInput.value !== "" && categoryInput.value !== "" && fileInput.value !== "") {
         validationButton.classList.add("active");
-        console.log("Bouton activé"); // Pour confirmer que la classe est ajoutée
+        console.log("Formulaire rempli"); // Pour confirmer que la classe est ajoutée
     } else {
         validationButton.classList.remove("active");
-        console.log("Bouton désactivé"); // Pour confirmer que la classe est retirée
+        console.log("Formulaire à compléter"); // Pour confirmer que la classe est retirée
     }
 }
 

@@ -1,6 +1,7 @@
 // Variables
 const form = document.getElementById("form")
 
+// Event Listener sur le formulaire de connexion
 form.addEventListener("submit", (e) => {
    e.preventDefault()
    const email = document.getElementById("email").value;
@@ -8,6 +9,7 @@ form.addEventListener("submit", (e) => {
    login(email, password);
 })
 
+// fonction pour la connexion et le stockage du token
 function login(email, password) {
     const url = "http://localhost:5678/api/users/login";
 
