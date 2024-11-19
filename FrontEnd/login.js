@@ -32,7 +32,7 @@ function login(email, password) {
     .then(data => {
         console.log("Connexion réussie", data);
         localStorage.setItem("token", data.token);
-        window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
+        window.location = "index.html";
     })
     .catch(error => {
         console.error("Erreur :", error);
