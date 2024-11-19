@@ -427,8 +427,9 @@ input[type=file] {
 	display: none;
 }
 
-#validation__button {
+#validation__button:disabled {
 	background-color: #A7A7A7;
+	cursor: not-allowed;
 }
 
 #categories-select {
@@ -459,17 +460,6 @@ display: flex;
 flex-direction: column;
 border-bottom: 1px solid #B3B3B3;
 padding-bottom: 50px;
-}
-
-#error {
-	text-align: center;
-	padding-block: 10px;
-	color: red;
-}
-
-#validation__button.active {
-    background-color: #1D6154;
-    color: #FFFFFF;
 }
 
 option:nth-child(1) {

@@ -135,24 +135,6 @@ function deleteProject() {
 // messages d'erreur du formulaire
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let messages = [];
-
-    if (titleInput.value == "") {
-        messages.push("Le titre est requis");
-    }
-
-    if(categoryInput.value == "") {
-        messages.push("Vous devez choisir une catégorie")
-    }
-
-    if(fileInput.value == "") {
-        messages.push("Vous devez sélectionner une image")
-    }
-
-    if (messages.length > 0) {
-        error.innerText = messages.join(', ');
-        return;
-    }
 
     //Envoi du formulaire
     const formData = new FormData(modalForm);
@@ -176,6 +158,7 @@ modalForm.addEventListener("submit", (e) => {
         // alert('Le projet a été ajouté avec succès !');
         modalForm.reset();
         document.getElementById('img__preview').src = '';
+        validationButton.setAttribute("disabled", "true");
         iconEl.classList.remove("hidden");
         labelEl.classList.remove("hidden");
         error.classList.add("hidden");
@@ -210,11 +193,9 @@ fileInput.addEventListener("change", (event) => {
 function checkFormCompletion() {
     console.log("Vérification des champs..."); // Pour voir si la fonction est appelée
     if (titleInput.value !== "" && categoryInput.value !== "" && fileInput.value !== "") {
-        validationButton.classList.add("active");
-        console.log("Formulaire rempli"); // Pour confirmer que la classe est ajoutée
+        validationButton.removeAttribute("disabled");
     } else {
-        validationButton.classList.remove("active");
-        console.log("Formulaire à compléter"); // Pour confirmer que la classe est retirée
+        validationButton.setAttribute("disabled", "true");
     }
 }
 
