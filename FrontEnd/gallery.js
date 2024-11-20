@@ -1,9 +1,9 @@
 // Variables
 const filtersContainer = document.querySelector(".filters");
 const gallery = document.querySelector(".gallery");
-const editBanner = document.querySelector(".edit");
+const editBanner = document.querySelector(".edit__banner");
+const editContainer = document.querySelector(".edit__link");
 const projectEdit = document.querySelector(".projects__edit");
-const editButton = document.querySelector(".edit__button");
 const filtersButton = document.querySelector(".filters");
 const logout = document.querySelector(".logout");
 
@@ -119,10 +119,28 @@ function editMode() {
     const token = window.localStorage.getItem("token");
     if (token !== null) {
         logout.innerText = "logout";
-        editBanner.style.display = "flex";
-        editButton.style.display = "block";
+
+        // Bannière mode édition
+        const edit = document.createElement("div");
+        edit.classList.add("edit");
+        const icon = document.createElement("i");
+        icon.classList.add("fa-regular", "fa-pen-to-square");
+        const text = document.createElement("p");
+        text.textContent = "Mode édition";
         filtersButton.style.display = "none";
-        projectEdit.classList.add("projects__edit--visible");
+        edit.appendChild(icon);
+        edit.appendChild(text);
+        editBanner.appendChild(edit);
+
+        //bouton modifier
+        const editButton = document.createElement("a");
+        editButton.classList.add("edit__button");
+        const editIcon = document.createElement("i");
+        editIcon.classList.add("fa-regular", "fa-pen-to-square");
+        editButton.appendChild(editIcon);
+        editButton.appendChild(document.createTextNode("Modifier"));
+        editContainer.appendChild(editButton);
+        
     } else {
         logout.innerText = "login";
         filtersButton.style.display = "flex";
