@@ -59,7 +59,7 @@ function addFilters() {
     const filters = document.querySelectorAll(".filters button");
 
     filters.forEach(filter => {
-        filter.addEventListener("click", function(event) {
+        filter.addEventListener("click", async function(event) {
             const tag = event.currentTarget.id;
 
             // Retirer la classe active de tous les boutons
@@ -67,15 +67,14 @@ function addFilters() {
             // Ajouter la classe active au bouton cliqué
             event.currentTarget.classList.add("active");
 
-            const images = document.querySelectorAll(".gallery figure");
-            images.forEach(image => {
-                const imgElement = image.querySelector("img");
-                if (imgElement.dataset.category === tag || tag === "Tout") {
-                    image.style.display = "block"; // Afficher l'image
-                } else {
-                    image.style.display = "none"; // Masquer l'image
-                }
-            });
+            // Récupérer tous les projets
+            const allProjects = await fetchProjects();
+            const filteredProjects = tag === "Tout" 
+                ? allProjects 
+                : allProjects.filter(project => project.category.name === tag);
+
+            // Réafficher uniquement les projets correspondants
+            displayImages(filteredProjects);
         });
     });
 }
