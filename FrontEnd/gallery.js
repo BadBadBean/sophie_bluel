@@ -69,9 +69,13 @@ function addFilters() {
 
             // Récupérer tous les projets
             const allProjects = await fetchProjects();
-            const filteredProjects = tag === "Tout" 
-                ? allProjects 
-                : allProjects.filter(project => project.category.name === tag);
+            let filteredProjects;
+
+            if(tag === "Tout") {
+                filteredProjects = allProjects;
+            } else {
+                filteredProjects = allProjects.filter(project => project.category.name === tag);
+            }
 
             // Réafficher uniquement les projets correspondants
             displayImages(filteredProjects);
